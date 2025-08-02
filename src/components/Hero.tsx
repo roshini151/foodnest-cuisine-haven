@@ -55,10 +55,20 @@ const Hero = () => {
 
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button variant="hero" size="lg" className="text-lg px-8 py-3">
+          <Button 
+            variant="hero" 
+            size="lg" 
+            className="text-lg px-8 py-3"
+            onClick={() => window.location.href = '/menu'}
+          >
             Order Now
           </Button>
-          <Button variant="outline" size="lg" className="text-lg px-8 py-3 text-white border-white hover:bg-white hover:text-food-primary">
+          <Button 
+            variant="outline" 
+            size="lg" 
+            className="text-lg px-8 py-3 text-white border-white hover:bg-white hover:text-food-primary"
+            onClick={() => window.location.href = '/reservations'}
+          >
             Book a Table
           </Button>
         </div>
