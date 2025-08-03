@@ -107,69 +107,69 @@ const RestaurantDiscovery = () => {
             <TabsTrigger value="delivery">Delivery</TabsTrigger>
             <TabsTrigger value="nightlife">Nightlife</TabsTrigger>
           </TabsList>
-        </Tabs>
 
-        {/* Filters */}
-        <div className="mb-6">
-          <div className="flex flex-wrap gap-3 mb-4">
-            {/* Cuisine Filter */}
-            <Select value={selectedCuisine} onValueChange={setSelectedCuisine}>
-              <SelectTrigger className="w-40">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent className="bg-popover border border-border">
-                {cuisineTypes.map((cuisine) => (
-                  <SelectItem key={cuisine} value={cuisine}>{cuisine}</SelectItem>
+
+          {/* Filters */}
+          <div className="mb-6">
+            <div className="flex flex-wrap gap-3 mb-4">
+              {/* Cuisine Filter */}
+              <Select value={selectedCuisine} onValueChange={setSelectedCuisine}>
+                <SelectTrigger className="w-40">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent className="bg-popover border border-border">
+                  {cuisineTypes.map((cuisine) => (
+                    <SelectItem key={cuisine} value={cuisine}>{cuisine}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              {/* Filter Buttons */}
+              <div className="flex gap-2 overflow-x-auto pb-2">
+                {filterOptions.map((filter) => (
+                  <Button
+                    key={filter.id}
+                    variant={activeFilters.includes(filter.id) ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => toggleFilter(filter.id)}
+                    className="whitespace-nowrap"
+                  >
+                    <span className="mr-1">{filter.icon}</span>
+                    {filter.label}
+                  </Button>
                 ))}
-              </SelectContent>
-            </Select>
-
-            {/* Filter Buttons */}
-            <div className="flex gap-2 overflow-x-auto pb-2">
-              {filterOptions.map((filter) => (
-                <Button
-                  key={filter.id}
-                  variant={activeFilters.includes(filter.id) ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => toggleFilter(filter.id)}
-                  className="whitespace-nowrap"
-                >
-                  <span className="mr-1">{filter.icon}</span>
-                  {filter.label}
-                </Button>
-              ))}
+              </div>
             </div>
+
+            {/* Active Filters Display */}
+            {activeFilters.length > 0 && (
+              <div className="flex gap-2 flex-wrap">
+                {activeFilters.map((filterId) => {
+                  const filter = filterOptions.find(f => f.id === filterId);
+                  return (
+                    <Badge key={filterId} variant="secondary" className="cursor-pointer" onClick={() => toggleFilter(filterId)}>
+                      {filter?.label} ✕
+                    </Badge>
+                  );
+                })}
+                <Button variant="ghost" size="sm" onClick={() => setActiveFilters([])}>
+                  Clear all
+                </Button>
+              </div>
+            )}
           </div>
 
-          {/* Active Filters Display */}
-          {activeFilters.length > 0 && (
-            <div className="flex gap-2 flex-wrap">
-              {activeFilters.map((filterId) => {
-                const filter = filterOptions.find(f => f.id === filterId);
-                return (
-                  <Badge key={filterId} variant="secondary" className="cursor-pointer" onClick={() => toggleFilter(filterId)}>
-                    {filter?.label} ✕
-                  </Badge>
-                );
-              })}
-              <Button variant="ghost" size="sm" onClick={() => setActiveFilters([])}>
-                Clear all
-              </Button>
-            </div>
-          )}
-        </div>
+          {/* Results Count */}
+          <div className="mb-4">
+            <p className="text-muted-foreground">
+              {filteredRestaurants.length} restaurants found in {selectedCity}
+            </p>
+          </div>
 
-        {/* Results Count */}
-        <div className="mb-4">
-          <p className="text-muted-foreground">
-            {filteredRestaurants.length} restaurants found in {selectedCity}
-          </p>
-        </div>
-
-        {/* Restaurant Grid */}
-        <TabsContent value={selectedTab}>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredRestaurants.map((restaurant) => (
+          {/* Restaurant Grid */}
+          <TabsContent value={selectedTab}>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredRestaurants.map((restaurant) => (
               <Card key={restaurant.id} className="overflow-hidden hover:shadow-lg transition-shadow group">
                 <div className="relative">
                   <img
@@ -268,6 +268,7 @@ const RestaurantDiscovery = () => {
             </div>
           )}
         </TabsContent>
+        </Tabs>
       </div>
     </div>
   );
