@@ -11,6 +11,7 @@ import Menu from "./pages/Menu";
 import Cart from "./pages/Cart";
 import Reservations from "./pages/Reservations";
 import Auth from "./pages/Auth";
+import Discover from "./pages/Discover";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,6 +27,7 @@ const App = () => (
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<Index />} />
+                <Route path="/discover" element={<Discover />} />
                 <Route path="/menu" element={<Menu />} />
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/reservations" element={<Reservations />} />

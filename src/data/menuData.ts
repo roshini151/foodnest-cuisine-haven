@@ -19,7 +19,8 @@ export const menuCategories = [
   "Burger",
   "Desserts",
   "Beverages",
-  "Biryani"
+  "Biryani",
+  "Bakery"
 ];
 
 export const menuItems: MenuItem[] = [
@@ -299,6 +300,63 @@ export const menuItems: MenuItem[] = [
     image: "https://images.unsplash.com/photo-1553909489-cd47e0ef937f?w=400",
     category: "Beverages",
     rating: 4.7,
+    isVeg: true,
+    isSpicy: false
+  },
+
+  // Bakery Items
+  {
+    id: "bk1",
+    name: "Chocolate Croissant",
+    description: "Buttery croissant filled with rich chocolate",
+    price: 80,
+    image: "https://images.unsplash.com/photo-1555507036-ab794f575c1f?w=400",
+    category: "Bakery",
+    rating: 4.5,
+    isVeg: true,
+    isSpicy: false
+  },
+  {
+    id: "bk2", 
+    name: "Red Velvet Cake",
+    description: "Moist red velvet cake with cream cheese frosting",
+    price: 180,
+    image: "https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?w=400",
+    category: "Bakery",
+    rating: 4.7,
+    isVeg: true,
+    isSpicy: false
+  },
+  {
+    id: "bk3",
+    name: "Butter Cookies",
+    description: "Crispy homemade butter cookies",
+    price: 120,
+    image: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400",
+    category: "Bakery", 
+    rating: 4.3,
+    isVeg: true,
+    isSpicy: false
+  },
+  {
+    id: "bk4",
+    name: "Rasmalai Cake",
+    description: "Fusion dessert combining rasmalai with sponge cake",
+    price: 220,
+    image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400",
+    category: "Bakery",
+    rating: 4.8,
+    isVeg: true,
+    isSpicy: false
+  },
+  {
+    id: "bk5",
+    name: "Fruit Tart",
+    description: "Fresh seasonal fruits on vanilla custard tart",
+    price: 150,
+    image: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400", 
+    category: "Bakery",
+    rating: 4.4,
     isVeg: true,
     isSpicy: false
   }
