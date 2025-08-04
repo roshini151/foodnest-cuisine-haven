@@ -1,46 +1,46 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 
-const categories = [
+const dishes = [
   {
-    name: "North Indian",
-    image: "🍛",
-    description: "Rich curries & breads"
+    name: "Dosa",
+    image: "https://images.unsplash.com/photo-1630383249896-424e482df921?w=300&h=200&fit=crop",
+    description: "Crispy South Indian crepe"
   },
   {
-    name: "Chinese", 
-    image: "🥢",
-    description: "Stir-fry & noodles"
+    name: "Idli", 
+    image: "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=300&h=200&fit=crop",
+    description: "Soft steamed rice cakes"
   },
   {
-    name: "South Indian",
-    image: "🫓",
-    description: "Dosas & traditional"
+    name: "Vada",
+    image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=300&h=200&fit=crop", 
+    description: "Crispy lentil donuts"
   },
   {
-    name: "Pizza",
-    image: "🍕", 
-    description: "Italian classics"
+    name: "Pongal",
+    image: "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=300&h=200&fit=crop",
+    description: "Savory rice and lentil dish"
   },
   {
-    name: "Burger",
-    image: "🍔",
-    description: "Juicy & delicious"
+    name: "Sambar Rice",
+    image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?w=300&h=200&fit=crop",
+    description: "Rice with spicy lentil curry"
   },
   {
-    name: "Desserts",
-    image: "🍰",
-    description: "Sweet treats"
+    name: "Filter Coffee",
+    image: "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=300&h=200&fit=crop",
+    description: "Traditional South Indian coffee"
   },
   {
-    name: "Beverages",
-    image: "🥤",
-    description: "Fresh drinks"
+    name: "Chocolate Cake",
+    image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300&h=200&fit=crop",
+    description: "Rich chocolate dessert"
   },
   {
-    name: "Biryani",
-    image: "🍚",
-    description: "Aromatic rice dishes"
+    name: "Birthday Cakes",
+    image: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=300&h=200&fit=crop",
+    description: "Special celebration cakes"
   }
 ];
 
@@ -64,21 +64,25 @@ const FoodCategories = () => {
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-4">
-          {categories.map((category, index) => (
+          {dishes.map((dish, index) => (
             <Card 
               key={index}
               className="group cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-105 border-border/50 hover:border-food-primary/30"
-              onClick={() => handleCategoryClick(category.name)}
+              onClick={() => handleCategoryClick(dish.name)}
             >
-              <CardContent className="p-4 text-center">
-                <div className="text-4xl mb-2 group-hover:scale-110 transition-transform duration-300">
-                  {category.image}
+              <CardContent className="p-3 text-center">
+                <div className="w-full h-16 mb-2 rounded-lg overflow-hidden">
+                  <img 
+                    src={dish.image} 
+                    alt={dish.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                  />
                 </div>
                 <h3 className="font-semibold text-sm text-foreground mb-1">
-                  {category.name}
+                  {dish.name}
                 </h3>
                 <p className="text-xs text-muted-foreground">
-                  {category.description}
+                  {dish.description}
                 </p>
               </CardContent>
             </Card>
