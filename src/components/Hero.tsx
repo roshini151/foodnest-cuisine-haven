@@ -36,14 +36,6 @@ const Hero = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [location, setLocation] = useState("");
 
-  const handleSearch = () => {
-    if (searchQuery || location) {
-      alert(`Searching for: ${searchQuery || 'all items'} ${location ? `in ${location}` : ''}`);
-    } else {
-      alert("Please enter a search term or location");
-    }
-  };
-
   const handleOrderNow = () => {
     alert("Ordering feature coming soon!");
   };
@@ -68,11 +60,11 @@ const Hero = () => {
         {/* Content */}
         <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-            Experience authentic flavors
+            Experience authentic 
             <span className="block bg-gradient-to-r from-food-secondary to-food-warm bg-clip-text text-transparent">
-              and fresh ingredients
+              South Indian flavors
             </span>
-            delivered right to your doorstep
+            and fresh cakes delivered to your doorstep
           </h1>
 
           {/* Search Bar */}
@@ -81,7 +73,7 @@ const Hero = () => {
               <div className="flex-1 relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
                 <Input 
-                  placeholder="Search for dishes or restaurants"
+                  placeholder="Search for South Indian dishes or cakes"
                   className="pl-10 border-0 focus-visible:ring-0 text-gray-700 bg-transparent"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -101,14 +93,6 @@ const Hero = () => {
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              variant="hero" 
-              size="lg" 
-              className="text-lg px-8 py-3"
-              onClick={handleSearch}
-            >
-              Search
-            </Button>
             <Button 
               variant="hero" 
               size="lg" 
@@ -134,10 +118,10 @@ const Hero = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-              Featured Items
+              What's Cooking Today?
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Our most popular South Indian delicacies and fresh cakes
+              Popular South Indian foods and fresh cakes made with love
             </p>
           </div>
 
