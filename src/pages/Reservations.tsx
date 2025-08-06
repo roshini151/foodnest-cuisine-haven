@@ -12,6 +12,7 @@ import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
+import NavigationButtons from '@/components/NavigationButtons';
 
 const branches = [
   { id: 'downtown', name: 'Downtown Branch', address: '123 Main St, City Center' },
@@ -240,6 +241,7 @@ const Reservations = () => {
           </div>
         </div>
       </div>
+      <NavigationButtons />
     </div>
   );
 };

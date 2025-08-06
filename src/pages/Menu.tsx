@@ -7,6 +7,7 @@ import { Star, Plus, Leaf, Flame } from 'lucide-react';
 import { menuItems, menuCategories } from '@/data/menuData';
 import { useCart } from '@/contexts/CartContext';
 import { useToast } from '@/hooks/use-toast';
+import NavigationButtons from '@/components/NavigationButtons';
 
 const Menu = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -133,6 +134,7 @@ const Menu = () => {
           ))}
         </Tabs>
       </div>
+      <NavigationButtons />
     </div>
   );
 };

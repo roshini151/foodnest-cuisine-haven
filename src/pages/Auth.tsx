@@ -8,6 +8,7 @@ import { Eye, EyeOff, User, Mail, Phone, Lock } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
+import NavigationButtons from '@/components/NavigationButtons';
 
 const Auth = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -270,6 +271,7 @@ const Auth = () => {
           </CardContent>
         </Card>
       </div>
+      <NavigationButtons />
     </div>
   );
 };

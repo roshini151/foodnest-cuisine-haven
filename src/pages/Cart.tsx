@@ -6,6 +6,7 @@ import { useCart } from '@/contexts/CartContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
+import NavigationButtons from '@/components/NavigationButtons';
 
 const Cart = () => {
   const { items, updateQuantity, removeFromCart, getTotalPrice, clearCart } = useCart();
@@ -57,6 +58,7 @@ const Cart = () => {
             </Button>
           </div>
         </div>
+        <NavigationButtons />
       </div>
     );
   }
@@ -160,6 +162,7 @@ const Cart = () => {
           </div>
         </div>
       </div>
+      <NavigationButtons />
     </div>
   );
 };

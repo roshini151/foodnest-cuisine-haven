@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import FoodCategories from "@/components/FoodCategories";
 import Footer from "@/components/Footer";
+import NavigationButtons from "@/components/NavigationButtons";
 import { useNavigate } from "react-router-dom";
 
 const Index = () => {
@@ -13,6 +14,7 @@ const Index = () => {
       <Hero />
       <FoodCategories />
       <Footer />
+      <NavigationButtons />
     </div>
   );
 };

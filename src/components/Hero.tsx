@@ -3,6 +3,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Coffee, Utensils } from "lucide-react";
 import heroImage from "@/assets/hero-food.jpg";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 
 const featuredItems = [
   {
@@ -33,15 +35,25 @@ const featuredItems = [
 
 const Hero = () => {
   const [selectedBranch, setSelectedBranch] = useState("Chennai");
+  const navigate = useNavigate();
+  const { toast } = useToast();
   
   const branches = ["Chennai", "Madurai", "Coimbatore", "Hyderabad", "Bangalore"];
 
   const handleOrderNow = () => {
-    alert(`Order Now from ${selectedBranch} branch - Your Favorite Tiffin, Just a Tap Away!`);
+    toast({
+      title: `Order from ${selectedBranch}`,
+      description: "Your Favorite Tiffin, Just a Tap Away!",
+    });
+    navigate('/menu');
   };
 
   const handleDineIn = () => {
-    alert(`Dine-In Info for ${selectedBranch} branch - Meals Made with Love. Memories Served Daily.`);
+    toast({
+      title: `Dine-In at ${selectedBranch}`,
+      description: "Meals Made with Love. Memories Served Daily.",
+    });
+    navigate('/reservations');
   };
 
   return (
