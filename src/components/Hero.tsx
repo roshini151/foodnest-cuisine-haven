@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
-import { Search, MapPin } from "lucide-react";
+import { Coffee, Utensils } from "lucide-react";
 import heroImage from "@/assets/hero-food.jpg";
 import { useState } from "react";
 
@@ -33,15 +32,16 @@ const featuredItems = [
 ];
 
 const Hero = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [location, setLocation] = useState("");
+  const [selectedBranch, setSelectedBranch] = useState("Chennai");
+  
+  const branches = ["Chennai", "Madurai", "Coimbatore", "Hyderabad", "Bangalore"];
 
   const handleOrderNow = () => {
-    alert("Ordering feature coming soon!");
+    alert(`Order Now from ${selectedBranch} branch - Your Favorite Tiffin, Just a Tap Away!`);
   };
 
-  const handleBookTable = () => {
-    alert("Booking feature coming soon!");
+  const handleDineIn = () => {
+    alert(`Dine-In Info for ${selectedBranch} branch - Meals Made with Love. Memories Served Daily.`);
   };
 
   return (
@@ -59,35 +59,34 @@ const Hero = () => {
         
         {/* Content */}
         <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-            Experience authentic 
-            <span className="block bg-gradient-to-r from-food-secondary to-food-warm bg-clip-text text-transparent">
-              South Indian flavors
-            </span>
-            and fresh cakes delivered to your doorstep
-          </h1>
+          <div className="mb-4">
+            <h2 className="text-2xl sm:text-3xl font-bold text-food-secondary mb-2">Hot & Homely Across South India</h2>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
+              Authentic South Indian Meals
+              <span className="block bg-gradient-to-r from-food-secondary to-food-warm bg-clip-text text-transparent">
+                Served Fresh Daily
+              </span>
+            </h1>
+            <p className="text-xl text-white/90 mb-6">Feel at Home, Wherever You Are in South India</p>
+          </div>
 
-          {/* Search Bar */}
-          <div className="bg-white rounded-lg p-2 mb-8 max-w-2xl mx-auto shadow-2xl">
-            <div className="flex flex-col sm:flex-row gap-2">
-              <div className="flex-1 relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-                <Input 
-                  placeholder="Search for South Indian dishes or cakes"
-                  className="pl-10 border-0 focus-visible:ring-0 text-gray-700 bg-transparent"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-              </div>
-              <div className="flex-1 relative sm:border-l sm:pl-2">
-                <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-                <Input 
-                  placeholder="Enter your location"
-                  className="pl-10 border-0 focus-visible:ring-0 text-gray-700 bg-transparent"
-                  value={location}
-                  onChange={(e) => setLocation(e.target.value)}
-                />
-              </div>
+          {/* Branch Selection */}
+          <div className="bg-white/95 backdrop-blur-sm rounded-xl p-6 shadow-2xl mb-8 max-w-4xl mx-auto">
+            <h3 className="text-lg font-semibold text-gray-800 mb-4 text-center">Choose Your Branch</h3>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+              {branches.map((branch) => (
+                <button
+                  key={branch}
+                  onClick={() => setSelectedBranch(branch)}
+                  className={`p-3 rounded-lg text-sm font-medium transition-all ${
+                    selectedBranch === branch
+                      ? 'bg-food-primary text-white shadow-lg'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
+                >
+                  {branch}
+                </button>
+              ))}
             </div>
           </div>
 
@@ -99,15 +98,17 @@ const Hero = () => {
               className="text-lg px-8 py-3"
               onClick={handleOrderNow}
             >
+              <Utensils className="w-5 h-5 mr-2" />
               Order Now
             </Button>
             <Button 
               variant="outline" 
               size="lg" 
-              className="text-lg px-8 py-3 text-white border-white hover:bg-white hover:text-food-primary"
-              onClick={handleBookTable}
+              className="text-lg px-8 py-3 bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white hover:text-food-primary"
+              onClick={handleDineIn}
             >
-              Book a Table
+              <Coffee className="w-5 h-5 mr-2" />
+              Dine-In Info
             </Button>
           </div>
         </div>
@@ -121,7 +122,7 @@ const Hero = () => {
               What's Cooking Today?
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Popular South Indian foods and fresh cakes made with love
+              Fresh tea, crispy dosa, hearty pongal, aromatic filter coffee, and sweet treats
             </p>
           </div>
 

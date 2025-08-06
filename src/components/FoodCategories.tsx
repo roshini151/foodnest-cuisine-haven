@@ -3,44 +3,34 @@ import { useNavigate } from "react-router-dom";
 
 const dishes = [
   {
-    name: "Dosa",
-    image: "https://images.unsplash.com/photo-1630383249896-424e482df921?w=300&h=200&fit=crop",
-    description: "Crispy South Indian crepe"
-  },
-  {
-    name: "Idli", 
+    name: "Breakfast",
     image: "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=300&h=200&fit=crop",
-    description: "Soft steamed rice cakes"
+    description: "Fresh idli, dosa, pongal"
   },
   {
-    name: "Vada",
-    image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=300&h=200&fit=crop", 
-    description: "Crispy lentil donuts"
+    name: "Meals Combo", 
+    image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=300&h=200&fit=crop",
+    description: "Traditional thali meals"
   },
   {
-    name: "Pongal",
-    image: "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=300&h=200&fit=crop",
-    description: "Savory rice and lentil dish"
+    name: "Snacks",
+    image: "https://images.unsplash.com/photo-1563379091339-03246963d50a?w=300&h=200&fit=crop", 
+    description: "Vada, bonda, bajji"
   },
   {
-    name: "Sambar Rice",
-    image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?w=300&h=200&fit=crop",
-    description: "Rice with spicy lentil curry"
-  },
-  {
-    name: "Filter Coffee",
+    name: "Drinks",
     image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=300&h=200&fit=crop",
-    description: "Traditional South Indian coffee"
+    description: "Filter coffee, tea, juices"
   },
   {
-    name: "Chocolate Cake",
-    image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300&h=200&fit=crop",
-    description: "Rich chocolate dessert"
+    name: "Ice Creams",
+    image: "https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=300&h=200&fit=crop",
+    description: "Kulfi, fruit flavors"
   },
   {
-    name: "Birthday Cakes",
-    image: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=300&h=200&fit=crop",
-    description: "Special celebration cakes"
+    name: "Sweets",
+    image: "https://images.unsplash.com/photo-1555507036-ab794f575c1f?w=300&h=200&fit=crop",
+    description: "Payasam, mysore pak"
   }
 ];
 
@@ -59,11 +49,11 @@ const FoodCategories = () => {
             What's on your mind?
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Explore our diverse range of cuisines and find your perfect meal
+            Authentic South Indian meals and treats made with love daily
           </p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
           {dishes.map((dish, index) => (
             <Card 
               key={index}

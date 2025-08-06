@@ -35,14 +35,19 @@ const Menu = () => {
     <div className="min-h-screen bg-background pt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-foreground mb-4">Our Menu</h1>
+          <h1 className="text-4xl font-bold text-foreground mb-4">Live Menu</h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Discover our delicious range of authentic cuisines
+            Fresh South Indian meals, snacks, and sweets made with love daily
           </p>
+          <div className="mt-4">
+            <Badge variant="secondary" className="bg-food-primary text-white text-sm px-4 py-2">
+              Today's Special Combo: ₹100–200 meals with Payasam included
+            </Badge>
+          </div>
         </div>
 
         <Tabs value={selectedCategory} onValueChange={setSelectedCategory} className="w-full">
-          <TabsList className="grid w-full grid-cols-3 md:grid-cols-5 lg:grid-cols-9 mb-8">
+          <TabsList className="grid w-full grid-cols-3 md:grid-cols-4 lg:grid-cols-7 mb-8">
             {menuCategories.map((category) => (
               <TabsTrigger key={category} value={category} className="text-sm">
                 {category}
@@ -73,6 +78,21 @@ const Menu = () => {
                             <Badge variant="secondary" className="bg-red-100 text-red-800">
                               <Flame className="w-3 h-3 mr-1" />
                               Spicy
+                            </Badge>
+                          )}
+                          {item.specialTag && (
+                            <Badge variant="secondary" className="bg-blue-100 text-blue-800">
+                              {item.specialTag}
+                            </Badge>
+                          )}
+                          {item.isAvailable === false && (
+                            <Badge variant="destructive" className="bg-red-500 text-white">
+                              Sold Out ❌
+                            </Badge>
+                          )}
+                          {item.isAvailable !== false && (
+                            <Badge variant="secondary" className="bg-green-500 text-white">
+                              Available ✅
                             </Badge>
                           )}
                         </div>

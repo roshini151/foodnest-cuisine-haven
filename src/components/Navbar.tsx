@@ -16,9 +16,8 @@ const Navbar = () => {
 
   const navItems = [
     { name: 'Home', href: '/' },
-    { name: 'Discover', href: '/discover' },
-    { name: 'Menu', href: '/menu' },
-    { name: 'Reservations', href: '/reservations' },
+    { name: 'Live Menu', href: '/menu' },
+    { name: 'Dine-In', href: '/discover' },
     { name: 'Cart', href: '/cart' },
   ];
 
@@ -34,8 +33,9 @@ const Navbar = () => {
         <div className="flex items-center">
           <div className="flex-shrink-0">
             <Link to="/" className="text-2xl font-bold text-food-primary hover:text-food-secondary transition-colors">
-              FoodNest
+              Hot & Homely
             </Link>
+            <p className="text-xs text-muted-foreground -mt-1">Across South India</p>
           </div>
         </div>
 
