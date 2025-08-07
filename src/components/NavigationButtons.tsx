@@ -36,29 +36,47 @@ const NavigationButtons = () => {
     // Undo last cart action or clear last search
     const lastAction = localStorage.getItem('foodnest-last-action');
     if (lastAction) {
-      const action = JSON.parse(lastAction);
-      
-      if (action.type === 'cart_add') {
-        // Remove last item from cart
-        const cart = JSON.parse(localStorage.getItem('foodnest-cart') || '[]');
-        const updatedCart = cart.filter((item: any) => item.id !== action.itemId);
-        localStorage.setItem('foodnest-cart', JSON.stringify(updatedCart));
+      try {
+        const action = JSON.parse(lastAction);
         
+        if (action.type === 'cart_add' || action.type === 'cart_remove' || action.type === 'cart_clear') {
+          // Restore previous cart state
+          if (action.previousState) {
+            localStorage.setItem('foodnest-cart', JSON.stringify(action.previousState));
+            toast({
+              title: "Action undone",
+              description: "Cart restored to previous state.",
+            });
+          }
+        } else if (action.type === 'search') {
+          // Clear last search
+          localStorage.removeItem('foodnest-last-search');
+          toast({
+            title: "Search cleared",
+            description: "Last search has been cleared.",
+          });
+        } else if (action.type === 'reservation') {
+          // Remove last reservation
+          const reservations = JSON.parse(localStorage.getItem('foodnest-reservations') || '[]');
+          if (reservations.length > 0) {
+            reservations.pop(); // Remove last reservation
+            localStorage.setItem('foodnest-reservations', JSON.stringify(reservations));
+            toast({
+              title: "Reservation cancelled",
+              description: "Last reservation has been cancelled.",
+            });
+          }
+        }
+        
+        localStorage.removeItem('foodnest-last-action');
+        window.location.reload(); // Refresh to show changes
+      } catch (error) {
         toast({
-          title: "Action undone",
-          description: "Last item removed from cart.",
-        });
-      } else if (action.type === 'search') {
-        // Clear last search
-        localStorage.removeItem('foodnest-last-search');
-        toast({
-          title: "Search cleared",
-          description: "Last search has been cleared.",
+          title: "Error",
+          description: "Could not undo last action.",
+          variant: "destructive"
         });
       }
-      
-      localStorage.removeItem('foodnest-last-action');
-      window.location.reload(); // Refresh to show changes
     } else {
       toast({
         title: "Nothing to undo",

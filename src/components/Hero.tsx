@@ -41,6 +41,15 @@ const Hero = () => {
   const branches = ["Chennai", "Madurai", "Coimbatore", "Hyderabad", "Bangalore"];
 
   const handleOrderNow = () => {
+    // Save navigation action for potential undo
+    localStorage.setItem('foodnest-last-action', JSON.stringify({
+      type: 'navigation',
+      from: '/',
+      to: '/menu',
+      branch: selectedBranch,
+      timestamp: Date.now()
+    }));
+    
     toast({
       title: `Order from ${selectedBranch}`,
       description: "Your Favorite Tiffin, Just a Tap Away!",
@@ -49,6 +58,15 @@ const Hero = () => {
   };
 
   const handleDineIn = () => {
+    // Save navigation action for potential undo
+    localStorage.setItem('foodnest-last-action', JSON.stringify({
+      type: 'navigation',
+      from: '/',
+      to: '/reservations',
+      branch: selectedBranch,
+      timestamp: Date.now()
+    }));
+    
     toast({
       title: `Dine-In at ${selectedBranch}`,
       description: "Meals Made with Love. Memories Served Daily.",

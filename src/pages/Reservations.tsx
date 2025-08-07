@@ -75,6 +75,13 @@ const Reservations = () => {
     reservations.push(reservationData);
     localStorage.setItem('foodnest-reservations', JSON.stringify(reservations));
 
+    // Save last action for undo functionality
+    localStorage.setItem('foodnest-last-action', JSON.stringify({
+      type: 'reservation',
+      timestamp: Date.now(),
+      reservationId: reservationData.id
+    }));
+
     toast({
       title: "Reservation Confirmed!",
       description: `Your table for ${guestCount} guests has been booked for ${format(selectedDate, 'PPP')} at ${selectedTime}.`,

@@ -17,6 +17,7 @@ interface CartContextType {
   clearCart: () => void;
   getTotalPrice: () => number;
   getTotalItems: () => number;
+  lastAction: any;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -31,6 +32,7 @@ export const useCart = () => {
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [items, setItems] = useState<CartItem[]>([]);
+  const [lastAction, setLastAction] = useState<any>(null);
 
   // Load cart from localStorage on mount
   useEffect(() => {
@@ -45,7 +47,20 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.setItem('foodnest-cart', JSON.stringify(items));
   }, [items]);
 
+  const saveLastAction = (action: any) => {
+    setLastAction(action);
+    localStorage.setItem('foodnest-last-action', JSON.stringify(action));
+  };
+
   const addToCart = (item: Omit<CartItem, 'quantity'>) => {
+    const previousState = [...items];
+    saveLastAction({
+      type: 'cart_add',
+      itemId: item.id,
+      previousState,
+      timestamp: Date.now()
+    });
+
     setItems(prevItems => {
       const existingItem = prevItems.find(i => i.id === item.id);
       if (existingItem) {
@@ -58,6 +73,13 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const removeFromCart = (id: string) => {
+    const previousState = [...items];
+    saveLastAction({
+      type: 'cart_remove',
+      itemId: id,
+      previousState,
+      timestamp: Date.now()
+    });
     setItems(prevItems => prevItems.filter(item => item.id !== id));
   };
 
@@ -74,6 +96,12 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const clearCart = () => {
+    const previousState = [...items];
+    saveLastAction({
+      type: 'cart_clear',
+      previousState,
+      timestamp: Date.now()
+    });
     setItems([]);
   };
 
@@ -93,7 +121,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       updateQuantity,
       clearCart,
       getTotalPrice,
-      getTotalItems
+      getTotalItems,
+      lastAction
     }}>
       {children}
     </CartContext.Provider>
