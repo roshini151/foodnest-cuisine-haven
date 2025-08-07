@@ -33,9 +33,9 @@ const Navbar = () => {
         <div className="flex items-center">
           <div className="flex-shrink-0">
             <Link to="/" className="text-2xl font-bold text-food-primary hover:text-food-secondary transition-colors">
-              Hot & Homely
+              FoodNest
             </Link>
-            <p className="text-xs text-muted-foreground -mt-1">Across South India</p>
+            <p className="text-xs text-muted-foreground -mt-1">Authentic South Indian</p>
           </div>
         </div>
 

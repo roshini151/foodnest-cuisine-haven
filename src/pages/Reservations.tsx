@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -15,9 +16,11 @@ import { useToast } from '@/hooks/use-toast';
 import NavigationButtons from '@/components/NavigationButtons';
 
 const branches = [
-  { id: 'downtown', name: 'Downtown Branch', address: '123 Main St, City Center' },
-  { id: 'mall', name: 'Shopping Mall Branch', address: '456 Mall Ave, North District' },
-  { id: 'airport', name: 'Airport Branch', address: '789 Airport Rd, Terminal 2' }
+  { id: 'chennai', name: 'Chennai Branch', address: 'T. Nagar, Chennai, Tamil Nadu' },
+  { id: 'madurai', name: 'Madurai Branch', address: 'Anna Nagar, Madurai, Tamil Nadu' },
+  { id: 'coimbatore', name: 'Coimbatore Branch', address: 'RS Puram, Coimbatore, Tamil Nadu' },
+  { id: 'hyderabad', name: 'Hyderabad Branch', address: 'Banjara Hills, Hyderabad, Telangana' },
+  { id: 'bangalore', name: 'Bangalore Branch', address: 'Koramangala, Bangalore, Karnataka' }
 ];
 
 const timeSlots = [
@@ -99,10 +102,15 @@ const Reservations = () => {
     <div className="min-h-screen bg-background pt-20">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-foreground mb-4">Table Reservation</h1>
+          <h1 className="text-4xl font-bold text-foreground mb-4">Table Reservation - FoodNest</h1>
           <p className="text-lg text-muted-foreground">
-            Book a table at your preferred FoodNest location
+            Book a table at your preferred FoodNest location across South India
           </p>
+          <div className="mt-4">
+            <Badge variant="secondary" className="bg-food-primary text-white text-sm px-4 py-2">
+              🪑 Book Your Table • Available Across 5 Branches
+            </Badge>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -146,7 +154,16 @@ const Reservations = () => {
                         )}
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
-                        {selectedDate ? format(selectedDate, "PPP") : <span>Pick a date</span>}
+                        {selectedDate ? (
+                          <div>
+                            <span>{format(selectedDate, "PPP")}</span>
+                            <span className="text-xs text-muted-foreground ml-2">
+                              ({format(selectedDate, "EEEE")})
+                            </span>
+                          </div>
+                        ) : (
+                          <span>Pick a date</span>
+                        )}
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0" align="start">
