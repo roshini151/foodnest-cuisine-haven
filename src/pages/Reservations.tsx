@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -23,11 +23,21 @@ const branches = [
   { id: 'bangalore', name: 'Bangalore Branch', address: 'Koramangala, Bangalore, Karnataka' }
 ];
 
-const timeSlots = [
-  '11:00 AM', '11:30 AM', '12:00 PM', '12:30 PM', '1:00 PM', '1:30 PM',
-  '2:00 PM', '2:30 PM', '6:00 PM', '6:30 PM', '7:00 PM', '7:30 PM',
-  '8:00 PM', '8:30 PM', '9:00 PM', '9:30 PM', '10:00 PM'
-];
+const generateTimeSlots = () => {
+  const slots: string[] = [];
+  const start = new Date();
+  start.setHours(11, 0, 0, 0);
+  const end = new Date();
+  end.setHours(23, 0, 0, 0);
+  const cur = new Date(start);
+  while (cur <= end) {
+    slots.push(format(cur, 'h:mm a'));
+    cur.setMinutes(cur.getMinutes() + 30);
+  }
+  return slots;
+};
+
+const timeSlots = generateTimeSlots();
 
 const Reservations = () => {
   const [selectedBranch, setSelectedBranch] = useState('');
@@ -39,6 +49,27 @@ const Reservations = () => {
   const { isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  // SEO: per-page title and meta
+  useEffect(() => {
+    document.title = "Table Reservation | FoodNest";
+    const desc = "Book a table at FoodNest across Chennai, Madurai, Coimbatore, Hyderabad, and Bangalore. Choose branch, date, time, and guests.";
+    let meta = document.querySelector('meta[name="description"]') as HTMLMetaElement | null;
+    if (!meta) {
+      meta = document.createElement('meta');
+      meta.name = 'description';
+      document.head.appendChild(meta);
+    }
+    meta.content = desc;
+
+    let link = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+    if (!link) {
+      link = document.createElement('link');
+      link.rel = 'canonical';
+      document.head.appendChild(link);
+    }
+    link.href = window.location.href;
+  }, []);
 
   const handleReservation = (e: React.FormEvent) => {
     e.preventDefault();
@@ -128,10 +159,10 @@ const Reservations = () => {
                 <div className="space-y-2">
                   <Label htmlFor="branch">Select Branch</Label>
                   <Select value={selectedBranch} onValueChange={setSelectedBranch}>
-                    <SelectTrigger>
+                    <SelectTrigger className="w-full">
                       <SelectValue placeholder="Choose a location" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="z-50">
                       {branches.map((branch) => (
                         <SelectItem key={branch.id} value={branch.id}>
                           {branch.name}
@@ -166,7 +197,7 @@ const Reservations = () => {
                         )}
                       </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
+                    <PopoverContent className="w-auto p-0 z-50" align="start">
                       <Calendar
                         mode="single"
                         selected={selectedDate}
@@ -185,10 +216,10 @@ const Reservations = () => {
                 <div className="space-y-2">
                   <Label htmlFor="time">Select Time</Label>
                   <Select value={selectedTime} onValueChange={setSelectedTime}>
-                    <SelectTrigger>
+                    <SelectTrigger className="w-full">
                       <SelectValue placeholder="Choose time slot" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="z-50">
                       {timeSlots.map((time) => (
                         <SelectItem key={time} value={time}>
                           {time}
@@ -202,10 +233,10 @@ const Reservations = () => {
                 <div className="space-y-2">
                   <Label htmlFor="guests">Number of Guests</Label>
                   <Select value={guestCount} onValueChange={setGuestCount}>
-                    <SelectTrigger>
+                    <SelectTrigger className="w-full">
                       <SelectValue placeholder="Select guest count" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="z-50">
                       {[1,2,3,4,5,6,7,8,9,10].map((num) => (
                         <SelectItem key={num} value={num.toString()}>
                           {num} {num === 1 ? 'Guest' : 'Guests'}
@@ -237,7 +268,7 @@ const Reservations = () => {
           <div className="space-y-4">
             <h2 className="text-2xl font-bold text-foreground mb-4">Our Locations</h2>
             {branches.map((branch) => (
-              <Card key={branch.id} className={cn(
+              <Card key={branch.id} onClick={() => setSelectedBranch(branch.id)} className={cn(
                 "cursor-pointer transition-all duration-300 hover:shadow-lg",
                 selectedBranch === branch.id && "ring-2 ring-food-primary"
               )}>
