@@ -162,7 +162,7 @@ const Reservations = () => {
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Choose a location" />
                     </SelectTrigger>
-                    <SelectContent className="z-50">
+                    <SelectContent className="z-[100] bg-background border shadow-lg">
                       {branches.map((branch) => (
                         <SelectItem key={branch.id} value={branch.id}>
                           {branch.name}
@@ -197,7 +197,7 @@ const Reservations = () => {
                         )}
                       </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0 z-50" align="start">
+                    <PopoverContent className="w-auto p-0 z-[100] bg-background border shadow-lg" align="start">
                       <Calendar
                         mode="single"
                         selected={selectedDate}
@@ -206,7 +206,7 @@ const Reservations = () => {
                           date < new Date() || date < new Date("1900-01-01")
                         }
                         initialFocus
-                        className="pointer-events-auto"
+                        className="p-3 pointer-events-auto"
                       />
                     </PopoverContent>
                   </Popover>
@@ -219,7 +219,7 @@ const Reservations = () => {
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Choose time slot" />
                     </SelectTrigger>
-                    <SelectContent className="z-50">
+                    <SelectContent className="z-[100] bg-background border shadow-lg">
                       {timeSlots.map((time) => (
                         <SelectItem key={time} value={time}>
                           {time}
@@ -236,7 +236,7 @@ const Reservations = () => {
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Select guest count" />
                     </SelectTrigger>
-                    <SelectContent className="z-50">
+                    <SelectContent className="z-[100] bg-background border shadow-lg">
                       {[1,2,3,4,5,6,7,8,9,10].map((num) => (
                         <SelectItem key={num} value={num.toString()}>
                           {num} {num === 1 ? 'Guest' : 'Guests'}
