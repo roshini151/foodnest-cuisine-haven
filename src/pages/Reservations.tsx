@@ -40,11 +40,19 @@ const generateTimeSlots = () => {
 const timeSlots = generateTimeSlots();
 
 const Reservations = () => {
+  const [name, setName] = useState('');
   const [selectedBranch, setSelectedBranch] = useState('');
   const [selectedDate, setSelectedDate] = useState<Date>();
   const [selectedTime, setSelectedTime] = useState('');
   const [guestCount, setGuestCount] = useState('');
   const [specialRequests, setSpecialRequests] = useState('');
+  const [confirmation, setConfirmation] = useState<{
+    id: string;
+    name: string;
+    branch: string;
+    date: string;
+    time: string;
+  } | null>(null);
   
   const { isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
@@ -84,7 +92,7 @@ const Reservations = () => {
       return;
     }
 
-    if (!selectedBranch || !selectedDate || !selectedTime || !guestCount) {
+    if (!name.trim() || !selectedBranch || !selectedDate || !selectedTime || !guestCount) {
       toast({
         title: "Missing Information",
         description: "Please fill in all required fields.",
@@ -93,17 +101,33 @@ const Reservations = () => {
       return;
     }
 
-    // Simulate reservation booking
+    // Availability check
+    const dateKey = format(selectedDate, 'yyyy-MM-dd');
+    const existingReservations = JSON.parse(localStorage.getItem('foodnest-reservations') || '[]');
+    const capacityPerSlot = 10;
+    const existingCount = existingReservations.filter((r: any) => r.branch === selectedBranch && r.dateKey === dateKey && r.time === selectedTime).length;
+
+    if (existingCount >= capacityPerSlot) {
+      toast({
+        title: "Sorry, no tables available",
+        description: `Please choose another time for ${format(selectedDate, 'PPP')} at ${selectedTime}.`,
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Create reservation
     const reservationData = {
       id: Date.now().toString(),
       userId: user?.id,
+      name,
       branch: selectedBranch,
       date: selectedDate,
+      dateKey,
       time: selectedTime,
       guests: guestCount,
       specialRequests
     };
-
     // Save to localStorage
     const reservations = JSON.parse(localStorage.getItem('foodnest-reservations') || '[]');
     reservations.push(reservationData);
@@ -118,10 +142,20 @@ const Reservations = () => {
 
     toast({
       title: "Reservation Confirmed!",
-      description: `Your table for ${guestCount} guests has been booked for ${format(selectedDate, 'PPP')} at ${selectedTime}.`,
+      description: `Thanks, ${name}! Your table for ${guestCount || 1} is booked for ${format(selectedDate, 'PPP')} at ${selectedTime} (${selectedBranch}).`,
+    });
+
+    // Show confirmation details
+    setConfirmation({
+      id: reservationData.id,
+      name,
+      branch: selectedBranch,
+      date: format(selectedDate, 'PPP'),
+      time: selectedTime
     });
 
     // Reset form
+    setName('');
     setSelectedBranch('');
     setSelectedDate(undefined);
     setSelectedTime('');
@@ -155,6 +189,18 @@ const Reservations = () => {
             </CardHeader>
             <CardContent>
               <form onSubmit={handleReservation} className="space-y-6">
+                {/* Name */}
+                <div className="space-y-2">
+                  <Label htmlFor="name">Name</Label>
+                  <Input
+                    id="name"
+                    placeholder="Your name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="w-full"
+                  />
+                </div>
+
                 {/* Branch Selection */}
                 <div className="space-y-2">
                   <Label htmlFor="branch">Select Branch</Label>
@@ -258,7 +304,7 @@ const Reservations = () => {
                 </div>
 
                 <Button type="submit" variant="hero" className="w-full" size="lg">
-                  Confirm Reservation
+                  🪑 Book Your Table
                 </Button>
               </form>
             </CardContent>
@@ -296,6 +342,27 @@ const Reservations = () => {
           </div>
         </div>
       </div>
+
+      {confirmation && (
+        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 pb-10">
+          <Card className="mt-6">
+            <CardHeader>
+              <CardTitle>Reservation Confirmed</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2">
+              <p className="text-muted-foreground">Here are your booking details:</p>
+              <div className="grid grid-cols-1 gap-2">
+                <div><span className="font-medium">Name:</span> {confirmation.name}</div>
+                <div><span className="font-medium">Branch:</span> {branches.find(b => b.id === confirmation.branch)?.name || confirmation.branch}</div>
+                <div><span className="font-medium">Date:</span> {confirmation.date}</div>
+                <div><span className="font-medium">Time:</span> {confirmation.time}</div>
+              </div>
+              <Badge variant="secondary" className="mt-2">We’ve saved your reservation.</Badge>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+
       <NavigationButtons />
     </div>
   );
