@@ -232,18 +232,18 @@ const Reservations = () => {
                 {/* Guest Count */}
                 <div className="space-y-2">
                   <Label htmlFor="guests">Number of Guests</Label>
-                  <Select value={guestCount} onValueChange={setGuestCount}>
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Select guest count" />
-                    </SelectTrigger>
-                    <SelectContent className="z-[100] bg-background border shadow-lg">
-                      {[1,2,3,4,5,6,7,8,9,10].map((num) => (
-                        <SelectItem key={num} value={num.toString()}>
-                          {num} {num === 1 ? 'Guest' : 'Guests'}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <Input
+                    id="guests"
+                    type="number"
+                    inputMode="numeric"
+                    min={1}
+                    max={10}
+                    step={1}
+                    placeholder="Enter guest count (1–10)"
+                    value={guestCount}
+                    onChange={(e) => setGuestCount(e.target.value)}
+                    className="w-full"
+                  />
                 </div>
 
                 {/* Special Requests */}
